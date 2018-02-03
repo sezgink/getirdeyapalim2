@@ -52,7 +52,7 @@ public class ShowActivity extends AppCompatActivity {
 
         RequestQueue rq = Volley.newRequestQueue(getBaseContext());
         String url = "https://getir-bitaksi-hackathon.herokuapp.com/searchRecords";
-        Log.d("Vole","Before try");
+        
         try {
             Log.d("Vole","After try");
             JSONObject jo = new JSONObject(s);
