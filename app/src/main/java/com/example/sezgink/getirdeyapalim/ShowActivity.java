@@ -8,6 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.JsonWriter;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +29,8 @@ import java.util.List;
 
 public class ShowActivity extends AppCompatActivity {
 
+    public int page = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +41,13 @@ public class ShowActivity extends AppCompatActivity {
 
         RecyclerView recy = findViewById(R.id.recy);
         final List<Record> recordsList = new ArrayList<Record>();
+        final List<Record> pageList = new ArrayList<Record>();
         Log.d("Adapter","List ready");
-        Record rec = new Record();
+
         Log.d("Adapter","Create record");
         //recordsList.add(rec);
         Log.d("Adapter","Added to liset");
-        final RecordsAdapter ra = new RecordsAdapter(recordsList);
+        final RecordsAdapter ra = new RecordsAdapter(pageList);
         Log.d("Adapter","ra is defined");
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         Log.d("Adapter","ra is defined");
@@ -52,7 +59,7 @@ public class ShowActivity extends AppCompatActivity {
 
         RequestQueue rq = Volley.newRequestQueue(getBaseContext());
         String url = "https://getir-bitaksi-hackathon.herokuapp.com/searchRecords";
-        
+
         try {
             Log.d("Vole","After try");
             JSONObject jo = new JSONObject(s);
@@ -69,6 +76,11 @@ public class ShowActivity extends AppCompatActivity {
                         recordsList.add(r);
                         Log.d("added",r._id._id);
                     }
+                    Log.d("Records","Records list.size:"+Integer.toString(recordsList.size()));
+                    for(int i=page*10;i<(page+1)*10;i++) {
+                        pageList.add(recordsList.get(i));
+                    }
+
                     Log.i("Responsee!", "Before notify");
                     ra.notifyDataSetChanged();
 
@@ -90,6 +102,53 @@ public class ShowActivity extends AppCompatActivity {
         } catch(Exception e) {
 
         }
+        Button bUp = findViewById(R.id.buttonUp);
+        Button bDown =findViewById(R.id.buttonDown);
+        final TextView pageText = findViewById(R.id.pageText);
+
+        bUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(page<recordsList.size()/10)
+                    page += 1;
+                pageList.clear();
+
+                if(recordsList.size()>(page+1)*10) {
+                    for(int i=page*10;i<(page+1)*10;i++) {
+                        pageList.add(recordsList.get(i));
+                    }
+                } else {
+                    for(int i=page*10;i<recordsList.size();i++) {
+                        pageList.add(recordsList.get(i));
+                    }
+                }
+                pageText.setText(Integer.toString(page+1));
+                ra.notifyDataSetChanged();
+            }
+        });
+        bDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(page>0) {
+                    page -= 1;
+                }
+                pageList.clear();
+                if(recordsList.size()>(page+1)*10) {
+                    for(int i=page*10;i<(page+1)*10;i++) {
+                        pageList.add(recordsList.get(i));
+                    }
+                } else {
+                    for(int i=page*10;i<recordsList.size();i++) {
+                        pageList.add(recordsList.get(i));
+                    }
+                }
+                pageText.setText(Integer.toString(page+1));
+                ra.notifyDataSetChanged();
+            }
+        });
+
+
+
 
 
     }
