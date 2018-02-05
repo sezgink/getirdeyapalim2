@@ -1,5 +1,6 @@
 package com.example.sezgink.getirdeyapalim;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -77,15 +79,29 @@ public class ShowActivity extends AppCompatActivity {
                         Log.d("added",r._id._id);
                     }
                     Log.d("Records","Records list.size:"+Integer.toString(recordsList.size()));
-                    for(int i=page*10;i<(page+1)*10;i++) {
-                        pageList.add(recordsList.get(i));
+                    if(recordsList.size()>(page+1)*10) {
+                        for(int i=page*10;i<(page+1)*10;i++) {
+                            pageList.add(recordsList.get(i));
+                        }
+                    } else {
+                        for(int i=page*10;i<recordsList.size();i++) {
+                            pageList.add(recordsList.get(i));
+                        }
                     }
 
                     Log.i("Responsee!", "Before notify");
+
                     ra.notifyDataSetChanged();
 
+                    if(recordsList.size()<1) {
+                        Context context = getApplicationContext();
+                        CharSequence text = "No records";
+                        int duration = Toast.LENGTH_SHORT;
 
-                    Log.i("Responsee!", "I parsed " + res.records.get(0)._id.key);
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+
 
 
                     // sendPrint(response.toString());

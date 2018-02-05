@@ -1,5 +1,6 @@
 package com.example.sezgink.getirdeyapalim;
 
+import android.app.DatePickerDialog;
 import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 import com.android.volley.AuthFailureError;
@@ -26,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,15 +46,81 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button minDateB,maxDateB,sendButton;
+    TextView minDateText,maxDateText;
+    EditText minCountText,maxCountText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        minDateText = findViewById(R.id.minDateText);
+        maxDateText = findViewById(R.id.maxDateText);
+        minDateB = findViewById(R.id.minDateB);
+        maxDateB = findViewById(R.id.maxDateB);
+
+        minCountText = findViewById(R.id.minCountText);
+        maxCountText = findViewById(R.id.maxCountText);
+
         Log.i("isWork", "Started");
 
-        Button sendButton = findViewById(R.id.sendButton);
+        minDateB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Date","Clickeed");
+                Calendar currentDate = Calendar.getInstance();
+                int year = currentDate.get(Calendar.YEAR);
+                int day = currentDate.get(Calendar.DAY_OF_MONTH);
+                int month = currentDate.get(Calendar.MONTH);
+                DatePickerDialog datePicker;
+                Log.d("Date","Date Picker created");
+                datePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Log.d("Date","Lets date");
+                      minDateText.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+
+                    }
+                },year,month,day);
+                datePicker.setTitle("Tarih Seçiniz");
+                datePicker.setButton(DatePickerDialog.BUTTON_POSITIVE, "Ayarla", datePicker);
+                datePicker.setButton(DatePickerDialog.BUTTON_NEGATIVE, "Iptal", datePicker);
+                Log.d("Date","Before Show");
+                datePicker.show();
+            }
+        });
+        maxDateB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Date","Clickeed");
+                Calendar currentDate = Calendar.getInstance();
+                int year = currentDate.get(Calendar.YEAR);
+                int day = currentDate.get(Calendar.DAY_OF_MONTH);
+                int month = currentDate.get(Calendar.MONTH);
+                DatePickerDialog datePicker;
+                Log.d("Date","Date Picker created");
+                datePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Log.d("Date","Lets date");
+                        maxDateText.setText(year+"-"+(month+1)+"-"+dayOfMonth);
+
+                    }
+                },year,month,day);
+                datePicker.setTitle("Tarih Seçiniz");
+                datePicker.setButton(DatePickerDialog.BUTTON_POSITIVE, "Ayarla", datePicker);
+                datePicker.setButton(DatePickerDialog.BUTTON_NEGATIVE, "Iptal", datePicker);
+                Log.d("Date","Before Show");
+                datePicker.show();
+            }
+        });
+
+
+
+
+        sendButton = findViewById(R.id.sendButton);
 
 
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -63,10 +134,17 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject();
 
                 try{
+                    /*
                     jsonObject.put("startDate", "2016-01-26");
                     jsonObject.put("endDate", "2017-02-02");
                     jsonObject.put("minCount", 2700);
                     jsonObject.put("maxCount", 3000);
+                    */
+                    jsonObject.put("startDate", minDateText.getText().toString());
+                    jsonObject.put("endDate", maxDateText.getText().toString());
+                    jsonObject.put("minCount", Integer.parseInt(minCountText.getText().toString()));
+                    jsonObject.put("maxCount", Integer.parseInt(maxCountText.getText().toString()));
+
                     jsonArray.put(jsonObject);
                     //Log.i("jsonString", jsonObject.toString());
                     Intent search = new Intent(getBaseContext(),ShowActivity.class);
@@ -78,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }catch(Exception e){
-
+                    Log.d("JSON Send","Patladı" + e.toString());
                 }
 
 
