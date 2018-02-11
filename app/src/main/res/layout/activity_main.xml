@@ -8,12 +8,12 @@
 
     <Button
         android:id="@+id/sendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_width="136dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="52dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Button"
+        android:text="Show"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -22,85 +22,77 @@
         android:id="@+id/minDateB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="32dp"
         android:text="Set Min Date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/minDateText" />
+        app:layout_constraintStart_toStartOf="@+id/minDateText"
+        app:layout_constraintTop_toBottomOf="@+id/minDateText" />
 
     <Button
         android:id="@+id/maxDateB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="44dp"
         android:text="Set Max Date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/maxDateText" />
+        app:layout_constraintStart_toEndOf="@+id/minDateB"
+        app:layout_constraintTop_toTopOf="@+id/minDateB" />
 
     <TextView
         android:id="@+id/minDateText"
-        android:layout_width="189dp"
-        android:layout_height="41dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
-        android:text="TextView"
+        android:layout_width="134dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="76dp"
+        android:text="2018-2-15"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/minDateB"
-        app:layout_constraintHorizontal_bias="0.242"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/maxDateText"
-        android:layout_width="189dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        android:text="TextView"
+        android:layout_width="144dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="20dp"
+        android:text="2018-2-15"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/maxDateB"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/minDateText"
-        app:layout_constraintTop_toBottomOf="@+id/minDateText" />
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/minDateText" />
 
     <EditText
         android:id="@+id/minCountText"
         android:layout_width="150dp"
         android:layout_height="51dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="24dp"
         android:ems="10"
         android:inputType="number"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/maxDateB"
-        app:layout_constraintTop_toBottomOf="@+id/maxDateB" />
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/maxCountText"
         android:layout_width="144dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="number"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/minCountText"
+        app:layout_constraintStart_toStartOf="@+id/minCountText"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="151dp"
         android:layout_height="48dp"
+        android:layout_marginTop="36dp"
         android:text="Min Count"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/maxDateText"
-        app:layout_constraintTop_toTopOf="@+id/minCountText" />
+        app:layout_constraintStart_toStartOf="@+id/minDateText"
+        app:layout_constraintTop_toBottomOf="@+id/minDateB" />
 
     <TextView
         android:id="@+id/textView6"
@@ -111,5 +103,17 @@
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/maxCountText" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="16dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="64dp"
+        android:text="-"
+        android:textColor="@android:color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/minDateText"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

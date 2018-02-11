@@ -24,6 +24,38 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/errorText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="112dp"
+        android:text="No Records Found"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recy" />
+
+    <TextView
+        android:id="@+id/errorText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Try with differnt parameters..."
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="204dp" />
+
     <TextView
         android:id="@+id/pageText"
         android:layout_width="40dp"
@@ -50,6 +82,8 @@
         app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0" >
+
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.example.sezgink.getirdeyapalim;
 
+import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.VoiceInteractor;
 import android.content.Context;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.volley.AuthFailureError;
@@ -64,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
         minCountText = findViewById(R.id.minCountText);
         maxCountText = findViewById(R.id.maxCountText);
 
+        Calendar currentDate0 = Calendar.getInstance();
+        int year0 = currentDate0.get(Calendar.YEAR);
+        int day0 = currentDate0.get(Calendar.DAY_OF_MONTH);
+        int month0 = currentDate0.get(Calendar.MONTH);
+
+        minDateText.setText(year0+"-"+(month0+1)+"-"+day0);
+        maxDateText.setText(year0+"-"+(month0+1)+"-"+day0);
+
         Log.i("isWork", "Started");
 
         minDateB.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 int month = currentDate.get(Calendar.MONTH);
                 DatePickerDialog datePicker;
                 Log.d("Date","Date Picker created");
-                datePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                datePicker = new DatePickerDialog(MainActivity.this, AlertDialog.THEME_HOLO_DARK, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         Log.d("Date","Lets date");
@@ -84,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 },year,month,day);
+
                 datePicker.setTitle("Tarih Seçiniz");
                 datePicker.setButton(DatePickerDialog.BUTTON_POSITIVE, "Ayarla", datePicker);
                 datePicker.setButton(DatePickerDialog.BUTTON_NEGATIVE, "Iptal", datePicker);
@@ -101,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 int month = currentDate.get(Calendar.MONTH);
                 DatePickerDialog datePicker;
                 Log.d("Date","Date Picker created");
-                datePicker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                datePicker = new DatePickerDialog(MainActivity.this, AlertDialog.THEME_HOLO_DARK, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         Log.d("Date","Lets date");
@@ -157,6 +169,13 @@ public class MainActivity extends AppCompatActivity {
 
                 }catch(Exception e){
                     Log.d("JSON Send","Patladı" + e.toString());
+
+                    Context context = getApplicationContext();
+                    CharSequence text = "Check your values";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
 
 

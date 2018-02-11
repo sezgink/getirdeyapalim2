@@ -1,5 +1,6 @@
 package com.example.sezgink.getirdeyapalim;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,9 @@ public class ShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         final String s = intent.getStringExtra("searchObject");
         Log.i("Export",s);
@@ -93,6 +97,8 @@ public class ShowActivity extends AppCompatActivity {
 
                     ra.notifyDataSetChanged();
 
+                    findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+
                     if(recordsList.size()<1) {
                         Context context = getApplicationContext();
                         CharSequence text = "No records";
@@ -100,6 +106,13 @@ public class ShowActivity extends AppCompatActivity {
 
                         Toast toast = Toast.makeText(context, text, duration);
                         toast.show();
+
+                        TextView t1 = findViewById(R.id.errorText1);
+                        TextView t2 = findViewById(R.id.errorText2);
+
+                        t1.setVisibility(View.VISIBLE);
+                        t2.setVisibility(View.VISIBLE);
+
                     }
 
 
@@ -110,12 +123,22 @@ public class ShowActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.i("Error", "Response Error: " + error.toString());
+                    TextView t1 = findViewById(R.id.errorText1);
+
+                    findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+                    t1.setText("Error in response");
+                    t1.setVisibility(View.VISIBLE);
 
                 }
             });
 
             rq.add(jr);
         } catch(Exception e) {
+            TextView t1 = findViewById(R.id.errorText1);
+
+            findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+            t1.setText("Error");
+            t1.setVisibility(View.VISIBLE);
 
         }
         Button bUp = findViewById(R.id.buttonUp);
@@ -167,5 +190,13 @@ public class ShowActivity extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        //code it to launch an intent to the activity you want
+        Intent homeIntent = new Intent(this, MainActivity.class);
+        startActivity(homeIntent);
+        finish();
+        return true;
     }
 }
