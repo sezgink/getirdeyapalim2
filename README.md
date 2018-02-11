@@ -1,0 +1,3 @@
+# getirdeyapalim2
+
+This repository includes files of an Andorid app made for applying getir hackathon...
